@@ -6,19 +6,20 @@ properties([buildDiscarder(logRotator(artifactDaysToKeepStr: '', artifactNumToKe
 
 
 
-stage('CheckOutCode'){
+stage('CheckOutCode')
+{
 git branch: 'development', credentialsId: '166c70a2-1df5-4993-a566-0a795862da8c', url: 'https://github.com/MithunTechnologiesDevOps/maven-web-application.git'
 }
 
-stage('Build'){
+stage('Build')
+{
 sh "${mavenHome}/bin/mvn clean package"
 }
 
 
-stage('UploadArtifcatsIntoArtifactoryRepo'){
+stage('UploadArtifcatsIntoArtifactoryRepo')
+{
 sh "${mavenHome}/bin/mvn clean deploy"
 }
-
-
-
 }
+
