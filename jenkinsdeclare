@@ -1,0 +1,33 @@
+pipeline{
+
+agent any
+
+tools{
+maven 'maven3.8.8'
+
+}
+
+triggers{
+pollSCM('* * * * *')
+}
+
+options{
+timestamps()
+buildDiscarder(logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '5', daysToKeepStr: '', numToKeepStr: '5'))
+}
+
+stages{
+
+  stage('CheckOutCode'){
+    steps{
+    git branch: 'development', credentialsId: '166c70a2-1df5-4993-a566-0a795862da8c', url: 'https://github.com/MithunTechnologiesDevOps/maven-web-application.git'
+	
+	}
+  }
+  
+  stage('Build'){
+  steps{
+  sh  "mvn clean package"
+  }
+  }
+ 
